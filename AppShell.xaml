@@ -9,7 +9,16 @@
     <TabBar>
         <ShellContent
             Title="Home"
+            Icon="home_icon.png"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
+        <ShellContent
+            Title="Calendar"
+            Icon="calendar_icon.png"
+            ContentTemplate="{DataTemplate local:MainPage}" />
+        <ShellContent
+            Title="Profile"
+            Icon="profile_icon.png"
+            ContentTemplate="{DataTemplate local:MainPage}" />
     </TabBar>
 </Shell>
