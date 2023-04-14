@@ -6,9 +6,32 @@
     xmlns:local="clr-namespace:Mobile_IP"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <TabBar.Style>
+            <Style TargetType="TabBar">
+                <Setter Property="Shell.TabBarBackgroundColor"
+                        Value="WhiteSmoke" />
+                <Setter Property="Shell.TabBarTitleColor"
+                        Value="DarkRed" />
+                <Setter Property="Shell.TabBarUnselectedColor"
+                        Value="Black" />
+            </Style>
+        </TabBar.Style>
+        
+        <Tab Title="Home"
+             Icon="home_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"
+                          Route="MainPage" />
+        </Tab>
 
+        <Tab Title="Calendar" 
+             Icon="calendar_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+
+        <Tab Title="Profile"
+             Icon="profile_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+    </TabBar>
 </Shell>
