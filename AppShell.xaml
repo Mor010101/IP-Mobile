@@ -10,28 +10,27 @@
         <TabBar.Style>
             <Style TargetType="TabBar">
                 <Setter Property="Shell.TabBarBackgroundColor"
-                        Value="WhiteSmoke" />
+                        Value="#efefee" />
                 <Setter Property="Shell.TabBarTitleColor"
-                        Value="DarkRed" />
+                        Value="#9d0101" />
                 <Setter Property="Shell.TabBarUnselectedColor"
-                        Value="Black" />
+                        Value="#343333" />
             </Style>
         </TabBar.Style>
-        
+
         <Tab Title="Home"
              Icon="home_icon.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"
-                          Route="MainPage" />
+            <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
         </Tab>
 
         <Tab Title="Calendar" 
              Icon="calendar_icon.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:CalendarPage}" />
         </Tab>
 
         <Tab Title="Profile"
              Icon="profile_icon.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+            <ShellContent ContentTemplate="{DataTemplate local:ProfilePage}" />
         </Tab>
     </TabBar>
 </Shell>
