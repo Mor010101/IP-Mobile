@@ -7,7 +7,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
 				fonts.AddFont("Poppins-Semibold.ttf", "PoppinsSemibold");

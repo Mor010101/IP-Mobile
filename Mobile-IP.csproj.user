@@ -7,14 +7,17 @@
     <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
     <DefaultDevice>pixel_5_-_api_33</DefaultDevice>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
   <ItemGroup>
-    <MauiXaml Update="CalendarPage.xaml">
+    <MauiXaml Update="Pages\CalendarPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="HomePage.xaml">
+    <MauiXaml Update="Pages\HomePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="ProfilePage.xaml">
+    <MauiXaml Update="Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>
