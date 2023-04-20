@@ -13,24 +13,24 @@ namespace Mobile_IP.ViewModels
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private string email;
-        public string Email 
+        public string Email
         { get { return email; } 
-          set 
-            { 
-                email = value; 
+            set
+            {
+                email = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
-            } 
+            }
 
         }
         private string password;
-        public string Password 
+        public string Password
         {
             get { return password; }
-            set 
-            { 
+            set
+            {
                 password = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
-            } 
+            }
         }
         public ICommand SubmitCommand { protected set; get; }
         public LoginViewModel()
@@ -44,5 +44,6 @@ namespace Mobile_IP.ViewModels
                 DisplayInvalidLoginPrompt();
             }
         }
+
     }
 }
