@@ -34,7 +34,34 @@
 					   WidthRequest="275"
 					   Margin="0,10,0,0"
 					   BackgroundColor="#ffffff"
-					   BorderColor="Transparent"/>
+					   BorderColor="Transparent"
+                       Padding="20,10">
+
+                    <StackLayout>
+                        <Label Text="Current Values"
+							   FontSize="18"
+                               TextColor="#343333"
+                               Opacity="0.6"/>
+
+                        <HorizontalStackLayout>
+                            <Label Text="BPM"
+                                   FontSize="24"
+                                   TextColor="#9d0101"/>
+
+                            <Label Text="67"
+                                   FontSize="32"
+                                   TextColor="#9d0101"/>
+
+                            <Label Text="TEMP"
+                                   FontSize="24"
+                                   TextColor="#9d0101"/>
+
+                            <Label Text="36°"
+                                   FontSize="32"
+                                   TextColor="#9d0101"/>
+                        </HorizontalStackLayout>
+                    </StackLayout>
+                </Frame>
 
                 <!--ECG Frame-->
                 <Frame CornerRadius="8"
@@ -42,13 +69,17 @@
 					   WidthRequest="275"
 					   Margin="25"
 					   BackgroundColor="#ffffff"
-					   BorderColor="Transparent">
+					   BorderColor="Transparent"
+                       Padding="20,10">
                     
 					<StackLayout>
 						<Label Text="ECG"
-							   FontSize="18"/>
+							   FontSize="18"
+                               TextColor="#343333"
+                               Opacity="0.6"/>
 						
-						<Image Source="ecg.png"/>
+						<Image Source="ecg.png"
+                               HeightRequest="100"/>
 					</StackLayout>
 				</Frame>
 			</StackLayout>
