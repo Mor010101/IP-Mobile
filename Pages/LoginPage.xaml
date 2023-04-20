@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile_IP.Pages.LoginPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
+            <BoxView HeightRequest="10"/>
+            <Frame BackgroundColor="#efefee" HasShadow="false">
+                <StackLayout Orientation="Vertical" Spacing="10">
+                    <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"
+                     PlaceholderColor="#efefee" HeightRequest="40" Keyboard="Email" TextColor="#343333"/>
+                    <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password" 
+                     PlaceholderColor="#efefee" HeightRequest="40" IsPassword="True" TextColor="#343333"/>
+                </StackLayout>
+            </Frame>
+            <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="#efefee" FontAttributes="None" FontSize="Large"
+             HorizontalOptions="FillAndExpand" BackgroundColor="#9d0101"/>
+        </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
