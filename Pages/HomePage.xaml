@@ -9,18 +9,36 @@
                      HorizontalOptions="End"
                      Margin="8,15"/>
 
-        <Rectangle Fill="#efefee"
-			       HeightRequest="420"
-                   WidthRequest="450"
-                   Margin="90">
-        </Rectangle>
-    </StackLayout>
-    
+        <Frame CornerRadius="8"
+               HeightRequest="420"
+               WidthRequest="400"
+               Margin="90"
+               BackgroundColor="#efefee">
+            <Frame.Shadow>
+                <Shadow Brush="#343333"
+                        Opacity="0.15"
+                        Offset="20,20"
+                        Radius="40"/>
+            </Frame.Shadow>
 
-	<!--<VerticalStackLayout>
-		<Rectangle
-			Fill="#efefee"
-			HorizontalOptions="Center"
-			VerticalOptions="Center"/>
-	</VerticalStackLayout>-->
+            <StackLayout>
+                <Label Text="Welcome, Laurentiu"
+                       FontSize="20"
+                       TextColor="#343333"/>
+
+                <Frame CornerRadius="8"
+                       HeightRequest="175"
+                       WidthRequest="275"
+                       Margin="0,10,0,0"
+                       BackgroundColor="#ffffff">
+                </Frame>
+
+                <Frame CornerRadius="8"
+                       HeightRequest="133"
+                       WidthRequest="275"
+                       Margin="25"
+                       BackgroundColor="#ffffff"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
 </ContentPage>
