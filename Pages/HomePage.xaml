@@ -5,7 +5,7 @@
 			 BackgroundColor="#cbcbcb">
 
 	<StackLayout>
-		<ImageButton Source="bell_icon.png"
+        <ImageButton Source="bell_icon.png"
 					 HorizontalOptions="End"
 					 Margin="8,15"/>
 
@@ -37,29 +37,57 @@
 					   BorderColor="Transparent"
                        Padding="20,10">
 
+                    <!--Current Values Frame-->
                     <StackLayout>
-                        <Label Text="Current Values"
+                        <Label Text="CURRENT VALUES"
 							   FontSize="18"
                                TextColor="#343333"
                                Opacity="0.6"/>
 
-                        <HorizontalStackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
                             <Label Text="BPM"
-                                   FontSize="24"
+                                   FontSize="22"
+                                   TextColor="#9d0101"
+                                   VerticalOptions="Center"/>
+
+                            <Label Grid.Column="1"
+                                   Text="67"
+                                   FontSize="30"
                                    TextColor="#9d0101"/>
 
-                            <Label Text="67"
-                                   FontSize="32"
-                                   TextColor="#9d0101"/>
+                            <Label Grid.Column="2" 
+                                   Text="TEMP"
+                                   FontSize="22"
+                                   TextColor="#9d0101"
+                                   VerticalOptions="Center"/>
 
-                            <Label Text="TEMP"
-                                   FontSize="24"
-                                   TextColor="#9d0101"/>
+                            <Label Grid.Column="3" 
+                                   Text="36°"
+                                   FontSize="30"
+                                   TextColor="#9d0101"
+                                   VerticalOptions="Center"/>
+                        </Grid>
 
-                            <Label Text="36°"
-                                   FontSize="32"
-                                   TextColor="#9d0101"/>
-                        </HorizontalStackLayout>
+                        <!--Max Values Frame-->
+                        <Frame HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Padding="20,10">
+                            <Label Text="MAX VALUES"
+							       FontSize="16"
+                                   TextColor="#343333"
+                                   Opacity="0.6"/>
+                        </Frame>
                     </StackLayout>
                 </Frame>
 
