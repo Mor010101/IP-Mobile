@@ -54,6 +54,7 @@
 	  <None Remove="Resources\Images\calendar_icon.svg" />
 	  <None Remove="Resources\Images\careband_logo.svg" />
 	  <None Remove="Resources\Images\ecg.svg" />
+	  <None Remove="Resources\Images\edit_icon.svg" />
 	  <None Remove="Resources\Images\home_icon.svg" />
 	  <None Remove="Resources\Images\profile_icon.svg" />
 	</ItemGroup>
