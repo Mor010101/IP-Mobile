@@ -147,7 +147,8 @@
                                        HorizontalOptions="End"
                                        VerticalTextAlignment="Center"/>
 
-                                <Label Grid.Row="1"
+                                <Label x:Name="bpmMaxValueLabel"
+                                       Grid.Row="1"
                                        Grid.Column="1"
                                        Text="67"
                                        FontSize="22"
@@ -163,7 +164,8 @@
                                        HorizontalOptions="Center"
                                        VerticalTextAlignment="Center"/>
 
-                                <Label Grid.Row="1"
+                                <Label x:Name="tempMaxValueLabel"
+                                       Grid.Row="1"
                                        Grid.Column="3"
                                        Text="36°"
                                        FontSize="22"
@@ -215,7 +217,8 @@
                                        HorizontalOptions="Center"
                                        VerticalTextAlignment="Center"/>
 
-                                <Entry Grid.Row="1"
+                                <Entry x:Name="bpmMaxValueEntry"
+                                       Grid.Row="1"
                                        Grid.Column="1"
                                        BackgroundColor="#f0f0f0"
                                        VerticalTextAlignment="End"
@@ -234,7 +237,8 @@
                                        HorizontalOptions="Center"
                                        VerticalTextAlignment="Center"/>
 
-                                <Entry Grid.Row="1"
+                                <Entry x:Name="tempMaxValueEntry"
+                                       Grid.Row="1"
                                        Grid.Column="3"
                                        BackgroundColor="#f0f0f0"
                                        VerticalTextAlignment="End"
