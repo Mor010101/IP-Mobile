@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
              x:Class="Mobile_IP.CalendarPage"
              BackgroundColor="#cbcbcb">
-    
     <VerticalStackLayout>
-        <Label 
-            Text="Calendar Page opened!"
-            FontSize="24"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <xc:CalendarView
+            BackgroundColor="#ffffff"
+            Days="{Binding MyCalendar.Days}"
+            DaysOfWeek="{Binding MyCalendar.DayNamesOrder}"
+            NavigatedDate="{Binding MyCalendar.NavigatedDate}"/>
     </VerticalStackLayout>
 </ContentPage>
