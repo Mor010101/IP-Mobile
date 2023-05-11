@@ -1,4 +1,6 @@
-﻿namespace Mobile_IP;
+﻿using Mobile_IP.Pages;
+
+namespace Mobile_IP;
 
 public partial class App : Application
 {
@@ -6,6 +8,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+		MainPage = new LoginPage();
 	}
 }
