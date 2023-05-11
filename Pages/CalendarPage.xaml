@@ -4,11 +4,26 @@
              xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
              x:Class="Mobile_IP.CalendarPage"
              BackgroundColor="#cbcbcb">
-    <VerticalStackLayout>
-        <xc:CalendarView
-            BackgroundColor="#ffffff"
-            Days="{Binding MyCalendar.Days}"
-            DaysOfWeek="{Binding MyCalendar.DayNamesOrder}"
-            NavigatedDate="{Binding MyCalendar.NavigatedDate}"/>
-    </VerticalStackLayout>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="1"
+               CornerRadius="8"
+			   HeightRequest="440"
+               BackgroundColor="#efefee"
+               BorderColor="#efefee"
+               HasShadow="True"
+               Padding="0">
+
+            <xc:CalendarView BackgroundColor="#efefee"
+                             Days="{Binding MyCalendar.Days}"
+                             DaysOfWeek="{Binding MyCalendar.DayNamesOrder}"
+                             NavigatedDate="{Binding MyCalendar.NavigatedDate}"/>
+        </Frame>
+    </Grid>
 </ContentPage>
