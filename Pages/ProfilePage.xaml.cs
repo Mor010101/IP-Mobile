@@ -1,3 +1,5 @@
+using Mobile_IP.Pages;
+
 namespace Mobile_IP;
 
 public partial class ProfilePage : ContentPage
@@ -6,4 +8,9 @@ public partial class ProfilePage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void OnLogoutButton_Clicked(object sender, EventArgs e)
+    {
+		Application.Current.MainPage = new LoginPage();
+    }
 }
