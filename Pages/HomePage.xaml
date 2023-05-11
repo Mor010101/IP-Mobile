@@ -252,7 +252,7 @@
                                 <Button Grid.Row="2" 
                                         Grid.Column="2"
                                         Grid.ColumnSpan="2"
-                                        Text="Save"
+                                        Text="SAVE"
                                         FontFamily="PoppinsRegular"
                                         FontSize="16"
                                         BackgroundColor="#9d0101"

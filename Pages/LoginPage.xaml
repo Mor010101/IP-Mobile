@@ -94,7 +94,7 @@
                     <Button Grid.Row="4"
                             Grid.Column="1"
                             Command="{Binding SubmitCommand}"
-                            Text="Login"
+                            Text="LOGIN"
                             FontFamily="PoppinsRegular"
                             FontSize="16"
                             BackgroundColor="#9d0101"
