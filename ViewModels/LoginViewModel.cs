@@ -43,6 +43,10 @@ namespace Mobile_IP.ViewModels
             {
                 DisplayInvalidLoginPrompt();
             }
+            else
+            {
+                Application.Current.MainPage = new AppShell();
+            }
         }
 
     }

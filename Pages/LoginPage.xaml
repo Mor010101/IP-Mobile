@@ -1,26 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Mobile_IP.Pages.LoginPage">
-    <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
-            <BoxView HeightRequest="10"/>
-            <Frame BackgroundColor="#efefee" HasShadow="False">
-                <StackLayout Orientation="Vertical" Spacing="10">
-                    <Entry x:Name="Email" Text="{Binding Email}" Placeholder="user@example.com"   
-                           PlaceholderColor="#000000" Opacity="0.42" HeightRequest="40"   
-                           Keyboard="Email"  
-                           TextColor="#343333"/>
-                    <Entry x:Name="Password" Text="{Binding Password}" Placeholder="********"   
-                           PlaceholderColor="#000000" Opacity="0.42" HeightRequest="40"   
-                           IsPassword="True"  
-                           TextColor="#343333"/>
-                    <Button Command="{Binding SubmitCommand}" Text="Login" TextColor="White"  
-                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
-                    BackgroundColor="#9D0101" />
-                </StackLayout>
-                
-            </Frame>
-        </StackLayout>
-  </ContentPage.Content>
+             x:Class="Mobile_IP.Pages.LoginPage"
+             BackgroundColor="#cbcbcb">
+
+    <Grid HorizontalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280"/>
+        </Grid.ColumnDefinitions>
+
+        <Frame Grid.Row="1"
+               CornerRadius="8"
+               BackgroundColor="#efefee"
+               BorderColor="#efefee"
+               HasShadow="True"
+               Padding="0">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Please login to continue"
+					   FontSize="20"
+					   TextColor="#343333"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalTextAlignment="Start"
+                       Margin="8"/>
+
+                <Grid Grid.Row="1"
+                      HorizontalOptions="Center">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="105"/>
+                        <ColumnDefinition Width="105"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Text="Email"
+                           FontSize="12"
+                           TextColor="#343333"
+                           Opacity="0.6"
+                           Padding="0"/>
+
+                    <Entry x:Name="emailEntry"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding Email}"
+                           VerticalTextAlignment="End"
+                           FontFamily="PoppinsRegular"
+                           FontSize="16"
+                           TextColor="#343333"
+                           Placeholder="user@example.com"
+                           HeightRequest="45"/>
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Password"
+                           FontSize="12"
+                           TextColor="#343333"
+                           Opacity="0.6"
+                           Padding="0"/>
+
+                    <Entry x:Name="passwordEntry"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="{Binding Password}"
+                           VerticalTextAlignment="End"
+                           FontFamily="PoppinsRegular"
+                           FontSize="16"
+                           TextColor="#343333"
+                           Placeholder="********"
+                           IsPassword="True"
+                           HeightRequest="45"/>
+
+                    <Button Grid.Row="4"
+                            Grid.Column="1"
+                            Command="{Binding SubmitCommand}"
+                            Text="Login"
+                            FontFamily="PoppinsRegular"
+                            FontSize="16"
+                            BackgroundColor="#9d0101"
+                            CornerRadius="4"
+                            Padding="0"
+                            Margin="8"
+                            HeightRequest="40"/>
+                </Grid>
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>
