@@ -1,14 +1,304 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Mobile_IP.HomePage"
-             BackgroundColor="#cbcbcb">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="Mobile_IP.HomePage"
+			 BackgroundColor="#cbcbcb">
 
-    <VerticalStackLayout>
-        <Label 
-            Text="Home Page opened!"
-            FontSize="24"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ImageButton Source="bell_icon.png"
+                     HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     Margin="8,16"/>
+
+        <!--Main Frame-->
+        <Frame Grid.Row="1"
+               CornerRadius="8"
+			   HeightRequest="420"
+			   WidthRequest="400"
+               BackgroundColor="#efefee"
+               BorderColor="#efefee"
+               HasShadow="True"
+               Padding="0">
+
+            <Grid HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Welcome, Laurentiu"
+					   FontSize="20"
+					   TextColor="#343333"
+                       HorizontalOptions="Start"
+                       VerticalTextAlignment="Center"/>
+
+                <!--BPM Values Frame-->
+                <Frame Grid.Row="1"
+                       CornerRadius="8"
+					   HeightRequest="175"
+					   WidthRequest="275"
+                       BorderColor="#ffffff"
+                       HasShadow="True"
+                       Padding="0">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="CURRENT VALUES"
+							   FontSize="18"
+                               TextColor="#343333"
+                               Opacity="0.6"
+                               Margin="8"/>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="BPM"
+                                   FontSize="22"
+                                   TextColor="#9d0101"
+                                   HorizontalOptions="End"
+                                   VerticalTextAlignment="End"/>
+
+                            <Label Grid.Column="1"
+                                   Text="67"
+                                   FontSize="30"
+                                   TextColor="#9d0101"
+                                   HorizontalOptions="Center"/>
+
+                            <Label Grid.Column="2" 
+                                   Text="TEMP"
+                                   FontSize="22"
+                                   TextColor="#9d0101"
+                                   HorizontalOptions="Center"
+                                   VerticalTextAlignment="End"/>
+
+                            <Label Grid.Column="3" 
+                                   Text="36°"
+                                   FontSize="30"
+                                   TextColor="#9d0101"
+                                   HorizontalOptions="Start"
+                                   VerticalTextAlignment="Center"/>
+                        </Grid>
+
+                        <!--Max Values Frame-->
+                        <Frame x:Name="maxValuesFrame"
+                               Grid.Row="2"
+                               CornerRadius="8"
+                               HeightRequest="85"
+                               VerticalOptions="End"
+                               HasShadow="True"
+                               BorderColor="#efefee"
+                               Padding="0">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="MAX VALUES"
+                                       FontSize="16"
+                                       TextColor="#343333"
+                                       Opacity="0.6"
+                                       Margin="8"/>
+
+                                <ImageButton Grid.Column="2"
+                                             Grid.ColumnSpan="2"
+                                             Source="edit_icon.png"
+                                             HorizontalOptions="End"
+                                             VerticalOptions="Start"
+                                             Margin="8"
+                                             Clicked="OnEditImageButton_Clicked"/>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="BPM"
+                                       FontSize="18"
+                                       TextColor="#343333"
+                                       HorizontalOptions="End"
+                                       VerticalTextAlignment="Center"/>
+
+                                <Label x:Name="bpmMaxValueLabel"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="67"
+                                       FontSize="22"
+                                       TextColor="#343333"
+                                       HorizontalOptions="Center"
+                                       VerticalTextAlignment="Center"/>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="2"
+                                       Text="TEMP"
+                                       FontSize="18"
+                                       TextColor="#343333"
+                                       HorizontalOptions="Center"
+                                       VerticalTextAlignment="Center"/>
+
+                                <Label x:Name="tempMaxValueLabel"
+                                       Grid.Row="1"
+                                       Grid.Column="3"
+                                       Text="36°"
+                                       FontSize="22"
+                                       TextColor="#343333"
+                                       HorizontalOptions="Start"
+                                       VerticalTextAlignment="Center"/>
+                            </Grid>
+                        </Frame>
+
+                        <!--Set Max Values Frame-->
+                        <Frame x:Name="setMaxValuesFrame"
+                               Grid.Row="2"
+                               CornerRadius="8"
+                               HeightRequest="150"
+                               VerticalOptions="End"
+                               HasShadow="True"
+                               BorderColor="#efefee"
+                               Padding="8"
+                               IsEnabled="False"
+                               IsVisible="False">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0"
+                                       Grid.ColumnSpan="3"
+                                       Text="SET MAX VALUES"
+                                       FontSize="16"
+                                       TextColor="#343333"
+                                       Opacity="0.6"
+                                       Margin="0"/>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="BPM"
+                                       FontSize="20"
+                                       TextColor="#343333"
+                                       HorizontalOptions="Center"
+                                       VerticalTextAlignment="Center"/>
+
+                                <Entry x:Name="bpmMaxValueEntry"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       BackgroundColor="#f0f0f0"
+                                       VerticalTextAlignment="End"
+                                       HorizontalTextAlignment="Center"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="16"
+                                       TextColor="#343333"
+                                       HeightRequest="45"
+                                       WidthRequest="60"/>
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="2"
+                                       Text="TEMP"
+                                       FontSize="20"
+                                       TextColor="#343333"
+                                       HorizontalOptions="Center"
+                                       VerticalTextAlignment="Center"/>
+
+                                <Entry x:Name="tempMaxValueEntry"
+                                       Grid.Row="1"
+                                       Grid.Column="3"
+                                       BackgroundColor="#f0f0f0"
+                                       VerticalTextAlignment="End"
+                                       HorizontalTextAlignment="Center"
+                                       FontFamily="PoppinsRegular"
+                                       FontSize="16"
+                                       TextColor="#343333"
+                                       HeightRequest="45"
+                                       WidthRequest="60"/>
+
+                                <Button Grid.Row="2" 
+                                        Grid.Column="2"
+                                        Grid.ColumnSpan="2"
+                                        Text="Save"
+                                        FontFamily="PoppinsRegular"
+                                        FontSize="16"
+                                        BackgroundColor="#9d0101"
+                                        CornerRadius="4"
+                                        HeightRequest="35"
+                                        WidthRequest="80"
+                                        HorizontalOptions="End"
+                                        Padding="0"
+                                        Margin="8"
+                                        Clicked="OnSaveButton_Clicked"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Frame>
+
+                <!--ECG Frame-->
+                <Frame Grid.Row="2"
+                       CornerRadius="8"
+					   HeightRequest="133"
+					   WidthRequest="275"
+                       BorderColor="#ffffff"
+                       HasShadow="True"
+                       Padding="0">
+
+                    <Grid HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="ECG"
+							   FontSize="18"
+                               TextColor="#343333"
+                               Opacity="0.6"
+                               HorizontalOptions="Start"
+                               VerticalTextAlignment="Center"/>
+
+                        <Image Grid.Row="1"
+                               Source="ecg.png"/>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>
