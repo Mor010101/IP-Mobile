@@ -21,20 +21,30 @@
                Padding="0">
 
             <xc:CalendarView BackgroundColor="#efefee"
+                             BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                             BackwardsArrowCommandParameter="{Binding BackwardsNavigationAmount}"
+                             DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
                              Days="{Binding MyCalendar.Days}"
                              DaysOfWeek="{Binding MyCalendar.DayNamesOrder}"
-                             NavigatedDate="{Binding MyCalendar.NavigatedDate}"
+                             DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                              ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                             BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
-                             DaysViewHeightRequest="440">
+                             ForwardsArrowCommandParameter="{Binding ForwardsNavigationAmount}"
+                             NavigatedDate="{Binding MyCalendar.NavigatedDate}">
 
-                <xc:CalendarView.ForwardsArrowCommandParameter>
-                    <x:Int32>1</x:Int32>
-                </xc:CalendarView.ForwardsArrowCommandParameter>
-
-                <xc:CalendarView.BackwardsArrowCommandParameter>
-                    <x:Int32>-1</x:Int32>
-                </xc:CalendarView.BackwardsArrowCommandParameter>
+                <xc:CalendarView.NavigationViewTemplate>
+                    <ControlTemplate>
+                        <xc:NavigationView
+                            ArrowColor="#9d0101"
+                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            HeightRequest="{Binding NavigationHeightRequest}"
+                            Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
+                            TextColor="#9d0101"/>
+                    </ControlTemplate>
+                </xc:CalendarView.NavigationViewTemplate>
             </xc:CalendarView>
         </Frame>
     </Grid>
