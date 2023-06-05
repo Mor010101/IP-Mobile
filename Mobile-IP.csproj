@@ -60,6 +60,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Nancy" Version="2.0.0" />
+	  <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Pages\CalendarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
