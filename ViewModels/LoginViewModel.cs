@@ -39,7 +39,7 @@ namespace Mobile_IP.ViewModels
         }
         public void OnSubmit()
         {
-            if (email != "laurentiu" || password != "macaronar")
+            if (email != "test" || password != "test")
             {
                 DisplayInvalidLoginPrompt();
             }

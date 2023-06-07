@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
+             xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
              x:Class="Mobile_IP.CalendarPage"
              BackgroundColor="#cbcbcb">
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Calendar Page opened!"
-            FontSize="24"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="1"
+               CornerRadius="8"
+			   HeightRequest="440"
+               BackgroundColor="#efefee"
+               BorderColor="#efefee"
+               HasShadow="True"
+               Padding="4">
+
+            <xc:CalendarView BackgroundColor="#efefee"
+                             BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                             BackwardsArrowCommandParameter="{Binding BackwardsNavigationAmount}"
+                             DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
+                             Days="{Binding MyCalendar.Days}"
+                             DaysOfWeek="{Binding MyCalendar.DayNamesOrder}"
+                             DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
+                             ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
+                             ForwardsArrowCommandParameter="{Binding ForwardsNavigationAmount}"
+                             NavigatedDate="{Binding MyCalendar.NavigatedDate}">
+
+                <xc:CalendarView.NavigationViewTemplate>
+                    <ControlTemplate>
+                        <xc:NavigationView
+                            ArrowColor="#9d0101"
+                            BackwardsArrowCommand="{Binding BackwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            BackwardsArrowCommandParameter="{Binding BackwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommand="{Binding ForwardsArrowCommand, Source={x:RelativeSource TemplatedParent}}"
+                            ForwardsArrowCommandParameter="{Binding ForwardsArrowCommandParameter, Source={RelativeSource TemplatedParent}}"
+                            HeightRequest="{Binding NavigationHeightRequest}"
+                            Text="{Binding Text, Source={RelativeSource TemplatedParent}}"
+                            TextColor="#9d0101"/>
+                    </ControlTemplate>
+                </xc:CalendarView.NavigationViewTemplate>
+
+                <xc:CalendarView.DayTemplate>
+                    <DataTemplate x:DataType="{x:Type xcModels:CalendarDay}">
+                        <Border BackgroundColor="Transparent"
+                                StrokeThickness="0"
+                                HeightRequest="45"
+                                WidthRequest="45">
+                            
+                            <xc:DayView DateTime="{Binding DateTime}"
+                                        IsCurrentMonth="{Binding IsCurrentMonth}"
+                                        IsSelected="{Binding IsSelected}"
+                                        IsToday="{Binding IsToday}"
+                                        TodayTextColor="#343333"
+                                        TextColor="#343333"
+                                        InvalidTextColor="#cbcbcb"
+                                        TodayBackgroundColor="#cbcbcb"/>
+
+                            <Border.StrokeShape >
+                                <RoundRectangle CornerRadius="8"/>
+                            </Border.StrokeShape>
+                        </Border>
+                    </DataTemplate>
+                </xc:CalendarView.DayTemplate>
+            </xc:CalendarView>
+        </Frame>
+    </Grid>
 </ContentPage>

@@ -8,6 +8,7 @@
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="PoppinsRegular"/>
             </Style>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
