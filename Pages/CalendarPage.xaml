@@ -8,12 +8,24 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Frame Grid.Row="1"
+        <Frame BackgroundColor="#efefee"
+               BorderColor="#efefee"
+               CornerRadius="0"
+               Padding="12">
+
+            <Image Source="careband_logo.png"
+                   VerticalOptions="End"
+                   HorizontalOptions="Start"
+                   HeightRequest="25"/>
+        </Frame>
+
+        <Frame Grid.Row="2"
                CornerRadius="8"
 			   HeightRequest="440"
                BackgroundColor="#efefee"
