@@ -7,13 +7,6 @@
     Shell.FlyoutBehavior="Disabled"
     BackgroundColor="#efefee">
 
-    <!--<Shell.TitleView>
-        <Image Source="careband_logo.png"
-               VerticalOptions="Center"
-               HorizontalOptions="Start"
-               HeightRequest="20"/>
-    </Shell.TitleView>-->
-
     <TabBar>
         <TabBar.Style>
             <Style TargetType="TabBar">
