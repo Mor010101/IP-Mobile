@@ -74,11 +74,13 @@ namespace Mobile_IP.ViewModels
         }
         private async Task HandleInvalidLogin()
         {
-            if (loginAttempts == maxLoginAttempts)
-            { 
+            if (loginAttempts > maxLoginAttempts)
+            {
+                isCooldownActive = true;
                 await Application.Current.MainPage.DisplayAlert("Login failed", $"You have reached the maximum number of login attempts. Please try again after {loginCooldown} seconds.", "OK");
                 await Task.Delay(TimeSpan.FromSeconds(loginCooldown));
                 isCooldownActive = false;
+                loginAttempts = 0;
             }   
             else
             {
