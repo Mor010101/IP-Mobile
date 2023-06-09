@@ -8,11 +8,15 @@ using System.Windows.Input;
 
 namespace Mobile_IP.ViewModels
 {
-    internal class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private string email;
+        private int loginAttempts = 0;
+        private const int maxLoginAttempts = 3;
+        private const int loginCooldown = 30; 
+
         public string Email
         { get { return email; } 
             set
@@ -37,17 +41,42 @@ namespace Mobile_IP.ViewModels
         {
             SubmitCommand = new Command(OnSubmit);
         }
-        public void OnSubmit()
+        public async void OnSubmit()
         {
-            if (email != "test" || password != "test")
-            {
-                DisplayInvalidLoginPrompt();
-            }
-            else
+            if (VerifyLoginCredentials())
             {
                 Application.Current.MainPage = new AppShell();
             }
+            else
+            {
+                //DisplayInvalidLoginPrompt();
+                await HandleInvalidLogin();
+            }
         }
-
+        
+        private bool VerifyLoginCredentials()
+        {
+            if (email == "test" && password == "test")
+            {
+                loginAttempts = 0;
+                return true;
+            } else
+            {
+                loginAttempts++;
+                return false;
+            }
+        }
+        private async Task HandleInvalidLogin()
+        {
+            if (loginAttempts == maxLoginAttempts)
+            {
+                await Application.Current.MainPage.DisplayAlert("Login failed", $"You have reached the maximum number of login attempts. Please try again after {loginCooldown} seconds.", "OK");
+                await Task.Delay(TimeSpan.FromSeconds(loginCooldown));
+            }   
+            else
+            {
+                DisplayInvalidLoginPrompt();
+            }
+        }
     }
 }
