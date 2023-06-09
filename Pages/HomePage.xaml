@@ -6,18 +6,31 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ImageButton Source="bell_icon.png"
+        <Frame BackgroundColor="#efefee"
+               BorderColor="#efefee"
+               CornerRadius="0"
+               Padding="12">
+
+            <Image Source="careband_logo.png"
+                   VerticalOptions="End"
+                   HorizontalOptions="Start"
+                   HeightRequest="25"/>
+        </Frame>
+
+        <ImageButton Grid.Row="1"
+                     Source="bell_icon.png"
                      HorizontalOptions="End"
                      VerticalOptions="Start"
                      Margin="8,16"/>
 
         <!--Main Frame-->
-        <Frame Grid.Row="1"
+        <Frame Grid.Row="2"
                CornerRadius="8"
 			   HeightRequest="420"
 			   WidthRequest="400"
