@@ -16,7 +16,7 @@ namespace Mobile_IP.ViewModels
         private int loginAttempts = 0;
         private const int maxLoginAttempts = 3;
         private const int loginCooldown = 30;
-        private bool isSubmitCommandAvailable = true;
+        private bool isCooldownActive = false;
 
         public string Email
         { get { return email; } 
@@ -40,20 +40,15 @@ namespace Mobile_IP.ViewModels
         public ICommand SubmitCommand { protected set; get; }
         public LoginViewModel()
         {
-            SubmitCommand = new Command(OnSubmit, CanExecuteSubmitCommand);
+            SubmitCommand = new Command(OnSubmit);
         }
 
-        public bool IsSubmitCommandAvailable
-        {
-            get { return isSubmitCommandAvailable; }
-            set
-            {
-                isSubmitCommandAvailable = value;
-                PropertyChanged(this, new PropertyChangedEventArgs("IsSubmitCommandAvailable"));
-            }
-        }
         public async void OnSubmit()
         {
+            if (isCooldownActive) 
+            {
+                return;
+            }
             if (VerifyLoginCredentials())
             {
                 Application.Current.MainPage = new AppShell();
@@ -63,10 +58,6 @@ namespace Mobile_IP.ViewModels
                 //DisplayInvalidLoginPrompt();
                 await HandleInvalidLogin();
             }
-        }
-        private bool CanExecuteSubmitCommand()
-        {
-            return isSubmitCommandAvailable;
         }
         
         private bool VerifyLoginCredentials()
@@ -84,11 +75,10 @@ namespace Mobile_IP.ViewModels
         private async Task HandleInvalidLogin()
         {
             if (loginAttempts == maxLoginAttempts)
-            {
-                IsSubmitCommandAvailable = false;
+            { 
                 await Application.Current.MainPage.DisplayAlert("Login failed", $"You have reached the maximum number of login attempts. Please try again after {loginCooldown} seconds.", "OK");
                 await Task.Delay(TimeSpan.FromSeconds(loginCooldown));
-                isSubmitCommandAvailable = true;
+                isCooldownActive = false;
             }   
             else
             {

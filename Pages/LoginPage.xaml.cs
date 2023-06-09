@@ -10,7 +10,8 @@ public partial class LoginPage : ContentPage
 		//InitializeComponent();
 		var vm = new LoginViewModel();
 		this.BindingContext = vm;
-		vm.DisplayInvalidLoginPrompt += () => DisplayAlert("Error", "Invalid username/password, try again", "OK");
+
+        vm.DisplayInvalidLoginPrompt += () => DisplayAlert("Error", "Invalid username/password. Please try again.", "OK");
 		InitializeComponent();
 
         emailEntry.Completed += (object sender, EventArgs e) =>
