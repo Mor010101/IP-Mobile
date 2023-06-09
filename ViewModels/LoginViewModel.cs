@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Mobile_IP.ViewModels
 {
-    internal class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
