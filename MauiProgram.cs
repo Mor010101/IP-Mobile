@@ -1,4 +1,6 @@
-﻿namespace Mobile_IP;
+﻿using CommunityToolkit.Maui;
+
+namespace Mobile_IP;
 
 public static class MauiProgram
 {
@@ -7,6 +9,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");

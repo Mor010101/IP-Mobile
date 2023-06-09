@@ -18,12 +18,29 @@ namespace Mobile_IP.ViewModels
     {
         public Calendar<EventDay> EventCalendar { get; set; } = new Calendar<EventDay>()
         {
-            SelectedDates = new ObservableRangeCollection<DateTime>(),
+            NavigatedDate = DateTime.Today,
+            NavigationLowerBound = DateTime.Today.AddYears(-2),
+            NavigationUpperBound = DateTime.Today.AddYears(2),
+            StartOfWeek = DayOfWeek.Monday,
             SelectionAction = SelectionAction.Modify,
-            SelectionType = SelectionType.Single
+            NavigationLoopMode = NavigationLoopMode.LoopMinimumAndMaximum,
+            SelectionType = SelectionType.Single,
+            PageStartMode = PageStartMode.FirstDayOfMonth,
+            Rows = 2,
+            AutoRows = true,
+            AutoRowsIsConsistent = true,
+            TodayDate = DateTime.Today
         };
+
         public static readonly Random Random = new Random();
-        public List<Color> Colors { get; } = new List<Color>() { Microsoft.Maui.Graphics.Colors.Red, Microsoft.Maui.Graphics.Colors.Orange, Microsoft.Maui.Graphics.Colors.Yellow, Color.FromArgb("#00A000"), Microsoft.Maui.Graphics.Colors.Blue, Color.FromArgb("#8010E0") };
+        public double DaysViewHeightRequest { get; set; } = 440;
+        public double DayNamesHeightRequest { get; set; } = 25;
+        public double NavigationHeightRequest { get; set; } = 50;
+        public double DayHeightRequest { get; set; } = 45;
+        public double DayWidthRequest { get; set; } = 45;
+        public bool DayAutoSetStyleBasedOnDayState { get; set; } = true;
+        public int ForwardsNavigationAmount { get; set; } = 1;
+        public int BackwardsNavigationAmount { get; set; } = -1;
         public ObservableRangeCollection<Event> Events { get; } = new ObservableRangeCollection<Event>()
         {
             new Event() { Title = "Bowling", Description = "Bowling with friends" },
@@ -74,7 +91,7 @@ namespace Mobile_IP.ViewModels
             foreach (Event @event in Events)
             {
                 @event.DateTime = DateTime.Today.AddDays(Random.Next(-20, 21)).AddSeconds(Random.Next(86400));
-                @event.Color = Colors[Random.Next(6)];
+                @event.Color = Color.FromRgba("#9d0101");
             }
 
             EventCalendar.SelectedDates.CollectionChanged += SelectedDates_CollectionChanged;
@@ -84,6 +101,15 @@ namespace Mobile_IP.ViewModels
                 day.Events.ReplaceRange(Events.Where(x => x.DateTime.Date == day.DateTime.Date));
             }
         }
+
+        public void NavigateCalendar(int amount)
+        {
+            //Months are variable length, calculate the timespan needed to get to the result.
+            DateTime targetDateTime = EventCalendar.NavigatedDate.AddMonths(amount);
+
+            EventCalendar.Navigate(targetDateTime - EventCalendar.NavigatedDate);
+        }
+
         private void EventCalendar_DaysUpdated(object sender, EventArgs e)
         {
             foreach (var day in EventCalendar.Days)
@@ -94,17 +120,6 @@ namespace Mobile_IP.ViewModels
         private void SelectedDates_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             SelectedEvents.ReplaceRange(Events.Where(x => EventCalendar.SelectedDates.Any(y => x.DateTime.Date == y.Date)).OrderByDescending(x => x.DateTime));
-        }
-        public void NavigateCalendar(int amount)
-        {
-            if (EventCalendar.NavigatedDate.TryAddMonths(amount, out DateTime targetDate))
-            {
-                EventCalendar.Navigate(targetDate - EventCalendar.NavigatedDate);
-            }
-            else
-            {
-                EventCalendar.Navigate(amount > 0 ? TimeSpan.MaxValue : TimeSpan.MinValue);
-            }
         }
         public void ChangeDateSelection(DateTime dateTime)
         {
