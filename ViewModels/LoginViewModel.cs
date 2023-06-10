@@ -14,9 +14,11 @@ namespace Mobile_IP.ViewModels
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://34.140.195.43:80/api/Auth");
+        //HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://34.140.195.43:80/api/Auth");
+        HttpClient httpClient = new HttpClient();
         StreamWriter streamWriter;
 
+        private string AuthUri { get => "http://34.140.195.43:80/api/Auth"; }
 
         private string email;
         public string Email
@@ -42,9 +44,11 @@ namespace Mobile_IP.ViewModels
         public LoginViewModel()
         {
             SubmitCommand = new Command(OnSubmit);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            //httpWebRequest.ContentType = "application/json";
+            //httpWebRequest.Method = "POST";
+            httpClient.BaseAddress = new Uri(AuthUri); 
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
         public void OnSubmit()
         {
@@ -54,25 +58,25 @@ namespace Mobile_IP.ViewModels
                   { "password", password}
             };
 
-            using (streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                string json = new JavaScriptSerializer().Serialize(values);
-                streamWriter.Write(json);
-                streamWriter.Flush();
-            }
+            //using (streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            //{
+            //    string json = new JavaScriptSerializer().Serialize(values);
+            //    streamWriter.Write(json);
+            //    streamWriter.Flush();
+            //}
 
-            try
-            {
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                if(httpResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    Application.Current.MainPage = new AppShell();
-                }
-            }
-            catch(Exception e)
-            {
-                DisplayInvalidLoginPrompt();
-            }
+            //try
+            //{
+            //    var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            //    if(httpResponse.StatusCode == HttpStatusCode.OK)
+            //    {
+            //        Application.Current.MainPage = new AppShell();
+            //    }
+            //}
+            //catch(Exception e)
+            //{
+            //    DisplayInvalidLoginPrompt();
+            //}
 
         }
 
