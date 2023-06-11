@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using Mobile_IP.Models;
 using Nancy.Json;
+using System.ComponentModel;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Windows.Input;
 
 namespace Mobile_IP.ViewModels
 {
@@ -14,11 +12,9 @@ namespace Mobile_IP.ViewModels
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        //HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("http://34.140.195.43:80/api/Auth");
         HttpClient httpClient = new HttpClient();
-        StreamWriter streamWriter;
 
-        private string AuthUri { get => "http://34.140.195.43:80/api/Auth"; }
+        private string AuthUri { get => "http://34.140.195.43:80/"; }
 
         private string email;
         public string Email
@@ -44,13 +40,15 @@ namespace Mobile_IP.ViewModels
         public LoginViewModel()
         {
             SubmitCommand = new Command(OnSubmit);
-            //httpWebRequest.ContentType = "application/json";
-            //httpWebRequest.Method = "POST";
-            httpClient.BaseAddress = new Uri(AuthUri); 
+
+            httpClient.BaseAddress = new Uri(AuthUri);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             ServicePointManager.SecurityProtocol =
                 SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
-        public void OnSubmit()
+        public async void OnSubmit()
         {
             var values = new Dictionary<string, string>
             {
@@ -58,26 +56,21 @@ namespace Mobile_IP.ViewModels
                   { "password", password}
             };
 
-            //using (streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            //{
-            //    string json = new JavaScriptSerializer().Serialize(values);
-            //    streamWriter.Write(json);
-            //    streamWriter.Flush();
-            //}
+            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Auth", values);
+            try
+            {
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Application.Current.MainPage = new AppShell();
+                }
 
-            //try
-            //{
-            //    var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            //    if(httpResponse.StatusCode == HttpStatusCode.OK)
-            //    {
-            //        Application.Current.MainPage = new AppShell();
-            //    }
-            //}
-            //catch(Exception e)
-            //{
-            //    DisplayInvalidLoginPrompt();
-            //}
-
+                TokenClass token = new JavaScriptSerializer().Deserialize<TokenClass>(response.Content.ReadAsStringAsync().Result);
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
+            }
+            catch (Exception e)
+            {
+                DisplayInvalidLoginPrompt();
+            }
         }
 
     }
