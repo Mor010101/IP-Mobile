@@ -1,10 +1,13 @@
 ﻿using Mobile_IP.Models;
+using Nancy;
 using Nancy.Json;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Windows.Input;
+
+using HttpStatusCode = System.Net.HttpStatusCode;
 
 namespace Mobile_IP.ViewModels
 {
@@ -55,6 +58,11 @@ namespace Mobile_IP.ViewModels
         }
         public async void OnSubmit()
         {
+            if (isCooldownActive)
+            {
+                return;
+            }
+
             var values = new Dictionary<string, string>
             {
                   { "email", email},
@@ -64,35 +72,23 @@ namespace Mobile_IP.ViewModels
             HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Auth", values);
             try
             {
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (VerifyLoginCredentials(response))
                 {
                     Application.Current.MainPage = new AppShell();
                 }
 
                 TokenClass token = new JavaScriptSerializer().Deserialize<TokenClass>(response.Content.ReadAsStringAsync().Result);
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
-
-        public async void OnSubmit()
-        {
-            if (isCooldownActive) 
-            {
-                return;
             }
             catch (Exception e)
-            if (VerifyLoginCredentials())
             {
-                DisplayInvalidLoginPrompt();
-            }
-            else
-            {
-                //DisplayInvalidLoginPrompt();
                 await HandleInvalidLogin();
             }
         }
         
-        private bool VerifyLoginCredentials()
+        private bool VerifyLoginCredentials(HttpResponseMessage response)
         {
-            if (email == "test" && password == "test")
+            if (response.StatusCode == HttpStatusCode.OK)
             {
                 loginAttempts = 0;
                 return true;
@@ -102,6 +98,7 @@ namespace Mobile_IP.ViewModels
                 return false;
             }
         }
+
         private async Task HandleInvalidLogin()
         {
             if (loginAttempts > maxLoginAttempts)
