@@ -2,6 +2,7 @@
 
 namespace Mobile_IP;
 
+namespace Mobile_IP;
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()

@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Mobile_IP.ViewModels
 {
-    internal class LoginViewModel : INotifyPropertyChanged
+    public class LoginViewModel : INotifyPropertyChanged
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -17,6 +17,11 @@ namespace Mobile_IP.ViewModels
         private string AuthUri { get => "http://34.140.195.43:80/"; }
 
         private string email;
+        private int loginAttempts = 0;
+        private const int maxLoginAttempts = 3;
+        private const int loginCooldown = 30;
+        private bool isCooldownActive = false;
+
         public string Email
         { get { return email; } 
             set
@@ -66,12 +71,51 @@ namespace Mobile_IP.ViewModels
 
                 TokenClass token = new JavaScriptSerializer().Deserialize<TokenClass>(response.Content.ReadAsStringAsync().Result);
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
+
+        public async void OnSubmit()
+        {
+            if (isCooldownActive) 
+            {
+                return;
             }
             catch (Exception e)
+            if (VerifyLoginCredentials())
+            {
+                DisplayInvalidLoginPrompt();
+            }
+            else
+            {
+                //DisplayInvalidLoginPrompt();
+                await HandleInvalidLogin();
+            }
+        }
+        
+        private bool VerifyLoginCredentials()
+        {
+            if (email == "test" && password == "test")
+            {
+                loginAttempts = 0;
+                return true;
+            } else
+            {
+                loginAttempts++;
+                return false;
+            }
+        }
+        private async Task HandleInvalidLogin()
+        {
+            if (loginAttempts > maxLoginAttempts)
+            {
+                isCooldownActive = true;
+                await Application.Current.MainPage.DisplayAlert("Login failed", $"You have reached the maximum number of login attempts. Please try again after {loginCooldown} seconds.", "OK");
+                await Task.Delay(TimeSpan.FromSeconds(loginCooldown));
+                isCooldownActive = false;
+                loginAttempts = 0;
+            }   
+            else
             {
                 DisplayInvalidLoginPrompt();
             }
         }
-
     }
 }
