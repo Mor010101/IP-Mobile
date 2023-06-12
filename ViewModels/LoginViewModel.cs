@@ -1,13 +1,8 @@
 ﻿using Mobile_IP.Models;
-using Nancy;
 using Nancy.Json;
 using System.ComponentModel;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Windows.Input;
-
-using HttpStatusCode = System.Net.HttpStatusCode;
 
 namespace Mobile_IP.ViewModels
 {
@@ -15,10 +10,8 @@ namespace Mobile_IP.ViewModels
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        HttpClient httpClient = new HttpClient();
 
-        private string AuthUri { get => "http://34.140.195.43:80/"; }
-
+        private readonly Backend backend = new Backend();
         private string email;
         private int loginAttempts = 0;
         private const int maxLoginAttempts = 3;
@@ -49,10 +42,6 @@ namespace Mobile_IP.ViewModels
         {
             SubmitCommand = new Command(OnSubmit);
 
-            httpClient.BaseAddress = new Uri(AuthUri);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
             ServicePointManager.SecurityProtocol =
                 SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
         }
@@ -69,10 +58,10 @@ namespace Mobile_IP.ViewModels
                   { "password", password}
             };
 
-            HttpResponseMessage response = await httpClient.PostAsJsonAsync("api/Auth", values);
+            backend.PostJsonAndGetResponseAsync("api/Auth", values);
             try
             {
-                if (VerifyLoginCredentials(response))
+                if (VerifyLoginCredentials(backend))
                 {
                     Application.Current.MainPage = new AppShell();
                 }
@@ -86,9 +75,9 @@ namespace Mobile_IP.ViewModels
             }
         }
         
-        private bool VerifyLoginCredentials(HttpResponseMessage response)
+        private bool VerifyLoginCredentials(Backend backend)
         {
-            if (response.StatusCode == HttpStatusCode.OK)
+            if (backend.IsResponseStatusCodeOk())
             {
                 loginAttempts = 0;
                 return true;
