@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Syncfusion.Maui.Core.Hosting;
 
+
 namespace Mobile_IP;
 
 public static class MauiProgram
