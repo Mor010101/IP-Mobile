@@ -31,5 +31,5 @@ public class Backend
     public void AddRequestHeader(string name, string value) =>
         httpClient.DefaultRequestHeaders.Add(name, "Bearer " + value);
 
-    public bool IsResponseStatusCodeOk() => response.StatusCode == HttpStatusCode.OK;
+    public bool IsResponseStatusCodeOk() => Response.StatusCode == HttpStatusCode.OK;
 }

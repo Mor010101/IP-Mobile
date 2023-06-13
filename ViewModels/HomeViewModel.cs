@@ -1,7 +1,7 @@
 ﻿using Mobile_IP.Models;
 using MQTTnet;
 using MQTTnet.Client;
-using MQTTnet.Server;
+using Nancy.Json;
 
 namespace Mobile_IP.ViewModels;
 
@@ -10,10 +10,14 @@ public class HomeViewModel
     private readonly Backend backend = new Backend();
     private readonly MqttFactory mqttFactory = new MqttFactory();
 
+    public DateVitale dateVitale;
+
     public HomeViewModel()
     {
         StartMqttBroker();
     }
+
+    public DateVitale DateVitale { get => dateVitale; }
 
     private async Task StartMqttBroker()
     {
@@ -21,13 +25,13 @@ public class HomeViewModel
         {
             var mqttClientOptions = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
-                .WithTcpServer("ws://test.mosquitto.org:8080/mqtt", 8080)
+                .WithTcpServer("ws://test.mosquitto.org:8080/mqtt")
                 .Build();
             await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
 
             mqttClient.ApplicationMessageReceivedAsync += e =>
             {
-                Application.Current.MainPage.DisplayAlert("Alert", e.ApplicationMessage.ToString(), "OK");
+                dateVitale = new JavaScriptSerializer().Deserialize<DateVitale>(e.ApplicationMessage.ContentType);
                 return Task.CompletedTask;
             };
 
@@ -38,8 +42,6 @@ public class HomeViewModel
                     })
                 .Build();
             var response = await mqttClient.SubscribeAsync(mqttSubscribeOptions, CancellationToken.None);
-
-            await Application.Current.MainPage.DisplayAlert("Alert", "MQTT client subscribed to topic.", "OK");
         }
     }
 }
