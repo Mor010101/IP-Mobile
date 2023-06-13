@@ -321,7 +321,8 @@
                             </chart:SfCartesianChart.YAxes>
 
                             <!--If you want more curved lines consider changing with SplineSeries-->
-                            <chart:LineSeries ItemsSource="{Binding DateGrafic}"
+                            <chart:LineSeries x:Name="linieGrafic"
+                                              ItemsSource="{Binding DateGrafic}"
                                               XBindingPath="Timp"
                                               YBindingPath="Bataie"
                                               Fill="#9d0101"/>
