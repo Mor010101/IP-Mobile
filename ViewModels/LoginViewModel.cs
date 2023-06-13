@@ -66,8 +66,8 @@ namespace Mobile_IP.ViewModels
                     Application.Current.MainPage = new AppShell();
                 }
 
-                TokenClass token = new JavaScriptSerializer().Deserialize<TokenClass>(response.Content.ReadAsStringAsync().Result);
-                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token.Token);
+                TokenClass token = backend.DeserializeResponse<TokenClass>();
+                backend.AddRequestHeader("Authorization", token.Token);
             }
             catch (Exception e)
             {

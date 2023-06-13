@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Nancy.Json;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
@@ -13,6 +14,7 @@ public class Backend
 
     public Backend()
     {
+        httpClient = new HttpClient();
         httpClient.BaseAddress = new Uri(AuthUri);
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -22,5 +24,12 @@ public class Backend
 
     public async void PostJsonAndGetResponseAsync<Key, Value>(string requestUri, Dictionary<Key, Value> values) =>
         response = await httpClient.PostAsJsonAsync(requestUri, values);
+
+    public T DeserializeResponse<T>() =>
+        new JavaScriptSerializer().Deserialize<T>(Response.Content.ReadAsStringAsync().Result);
+
+    public void AddRequestHeader(string name, string value) =>
+        httpClient.DefaultRequestHeaders.Add(name, "Bearer " + value);
+
     public bool IsResponseStatusCodeOk() => response.StatusCode == HttpStatusCode.OK;
 }
