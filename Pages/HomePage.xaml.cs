@@ -7,6 +7,7 @@ public partial class HomePage : ContentPage
 	public HomePage()
 	{
 		InitializeComponent();
+		BindingContext = new ViewModels.PulsViewModel();
 	}
 
 	private async void OnEditImageButton_Clicked(object sender, EventArgs e)
