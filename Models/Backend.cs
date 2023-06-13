@@ -10,12 +10,12 @@ public class Backend
     private HttpClient httpClient;
     private HttpResponseMessage response;
 
-    private string AuthUri { get => "http://34.140.195.43:80/"; }
+    private string BaseUri { get => "http://34.140.195.43:80/"; }
 
     public Backend()
     {
         httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri(AuthUri);
+        httpClient.BaseAddress = new Uri(BaseUri);
         httpClient.DefaultRequestHeaders.Accept.Clear();
         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
     }
