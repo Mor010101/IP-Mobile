@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xc="clr-namespace:XCalendar.Maui.Views;assembly=XCalendar.Maui"
              xmlns:xcModels="clr-namespace:XCalendar.Core.Models;assembly=XCalendar.Core"
+             xmlns:Models="clr-namespace:Mobile_IP.Models"
+             xmlns:ViewModels="clr-namespace:Mobile_IP.ViewModels"
              x:Class="Mobile_IP.CalendarPage"
+             x:DataType="{x:Type ViewModels:EventCalendarViewModel}"
              BackgroundColor="#cbcbcb">
 
     <Grid>
@@ -37,12 +40,12 @@
                              BackwardsArrowCommand="{Binding NavigateCalendarCommand}"
                              BackwardsArrowCommandParameter="{Binding BackwardsNavigationAmount}"
                              DayNamesHeightRequest="{Binding DayNamesHeightRequest}"
-                             Days="{Binding MyCalendar.Days}"
-                             DaysOfWeek="{Binding MyCalendar.DayNamesOrder}"
+                             Days="{Binding EventCalendar.Days}"
+                             DaysOfWeek="{Binding EventCalendar.DayNamesOrder}"
                              DaysViewHeightRequest="{Binding DaysViewHeightRequest}"
                              ForwardsArrowCommand="{Binding NavigateCalendarCommand}"
                              ForwardsArrowCommandParameter="{Binding ForwardsNavigationAmount}"
-                             NavigatedDate="{Binding MyCalendar.NavigatedDate}">
+                             NavigatedDate="{Binding EventCalendar.NavigatedDate}">
 
                 <xc:CalendarView.NavigationViewTemplate>
                     <ControlTemplate>
@@ -65,7 +68,7 @@
                                 StrokeThickness="0"
                                 HeightRequest="45"
                                 WidthRequest="45">
-                            
+
                             <xc:DayView DateTime="{Binding DateTime}"
                                         IsCurrentMonth="{Binding IsCurrentMonth}"
                                         IsSelected="{Binding IsSelected}"
@@ -73,7 +76,42 @@
                                         TodayTextColor="#343333"
                                         TextColor="#343333"
                                         InvalidTextColor="#cbcbcb"
-                                        TodayBackgroundColor="#cbcbcb"/>
+                                        TodayBackgroundColor="#cbcbcb">
+
+                                <xc:DayView.ControlTemplate>
+                                    <ControlTemplate>
+                                        <Grid BindingContext="{Binding BindingContext, Source={RelativeSource TemplatedParent}}" RowSpacing="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1.5*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <ContentPresenter Grid.Row="0"
+                                                              Grid.RowSpan="2"
+                                                              VerticalOptions="Center"/>
+
+                                            <HorizontalStackLayout x:DataType="{x:Type ViewModels:EventCalendarViewModel}"
+                                                                   Grid.Row="1"
+                                                                   BindableLayout.ItemsSource="{Binding Events}"
+                                                                   HorizontalOptions="Center"
+                                                                   Spacing="2.5">
+
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate x:DataType="Models:Event">
+                                                        <BoxView CornerRadius="100"
+                                                                 HeightRequest="7"
+                                                                 HorizontalOptions="CenterAndExpand"
+                                                                 VerticalOptions="Center"
+                                                                 WidthRequest="7"
+                                                                 Color="{Binding Color}"/>
+                                                        
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                            </HorizontalStackLayout>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </xc:DayView.ControlTemplate>
+                            </xc:DayView>
 
                             <Border.StrokeShape >
                                 <RoundRectangle CornerRadius="8"/>
