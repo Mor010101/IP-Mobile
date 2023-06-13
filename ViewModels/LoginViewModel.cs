@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Mobile_IP.Models;
+using Nancy.Json;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows.Input;
 
 namespace Mobile_IP.ViewModels
@@ -12,6 +10,8 @@ namespace Mobile_IP.ViewModels
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        private readonly Backend backend = new Backend();
         private string email;
         private int loginAttempts = 0;
         private const int maxLoginAttempts = 3;
@@ -41,28 +41,43 @@ namespace Mobile_IP.ViewModels
         public LoginViewModel()
         {
             SubmitCommand = new Command(OnSubmit);
-        }
 
+            ServicePointManager.SecurityProtocol =
+                SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+        }
         public async void OnSubmit()
         {
-            if (isCooldownActive) 
+            if (isCooldownActive)
             {
                 return;
             }
-            if (VerifyLoginCredentials())
+
+            var values = new Dictionary<string, string>
             {
-                Application.Current.MainPage = new AppShell();
+                  { "email", email},
+                  { "password", password}
+            };
+
+            backend.PostJsonAndGetResponseAsync("api/Auth", values);
+            try
+            {
+                if (VerifyLoginCredentials(backend))
+                {
+                    Application.Current.MainPage = new AppShell();
+                }
+
+                TokenClass token = backend.DeserializeResponse<TokenClass>();
+                backend.AddRequestHeader("Authorization", token.Token);
             }
-            else
+            catch (Exception e)
             {
-                //DisplayInvalidLoginPrompt();
                 await HandleInvalidLogin();
             }
         }
         
-        private bool VerifyLoginCredentials()
+        private bool VerifyLoginCredentials(Backend backend)
         {
-            if (email == "test" && password == "test")
+            if (backend.IsResponseStatusCodeOk())
             {
                 loginAttempts = 0;
                 return true;
@@ -72,6 +87,7 @@ namespace Mobile_IP.ViewModels
                 return false;
             }
         }
+
         private async Task HandleInvalidLogin()
         {
             if (loginAttempts > maxLoginAttempts)

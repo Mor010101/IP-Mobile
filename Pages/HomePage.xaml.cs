@@ -1,4 +1,4 @@
-using Microsoft.Maui.Controls;
+using Mobile_IP.ViewModels;
 
 namespace Mobile_IP;
 
@@ -7,7 +7,8 @@ public partial class HomePage : ContentPage
 	public HomePage()
 	{
 		InitializeComponent();
-		BindingContext = new ViewModels.PulsViewModel();
+		BindingContext = new HomeViewModel();
+		linieGrafic.BindingContext = new PulsViewModel();
 	}
 
 	private async void OnEditImageButton_Clicked(object sender, EventArgs e)
