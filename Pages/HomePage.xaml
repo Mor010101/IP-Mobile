@@ -321,6 +321,7 @@
                             </chart:SfCartesianChart.YAxes>
 
                             <!--If you want more curved lines consider changing with SplineSeries-->
+                            <!--Aici ar trebui legat La dateVitale-->
                             <chart:LineSeries x:Name="linieGrafic"
                                               ItemsSource="{Binding DateGrafic}"
                                               XBindingPath="Timp"
